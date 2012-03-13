@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppRunner", "SimsRunner\AppRunner.csproj", "{4D7FD46D-979F-4E69-828F-E8187D446E73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppRunner", "AppRunner\AppRunner.csproj", "{4D7FD46D-979F-4E69-828F-E8187D446E73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gui", "Gui\Gui.csproj", "{DD07A5E9-7128-4993-8C2E-CC617F972455}"
 EndProject
