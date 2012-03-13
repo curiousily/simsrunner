@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NaughtySpirit.SimsRunner.AppRunner.Properties {
+namespace NaughtySpirit.SimsRunner.Gui.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NaughtySpirit.SimsRunner.AppRunner.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NaughtySpirit.SimsRunner.AppRunner.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NaughtySpirit.SimsRunner.Gui.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

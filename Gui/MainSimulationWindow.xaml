@@ -1,0 +1,26 @@
+﻿<Window x:Class="NaughtySpirit.SimsRunner.Gui.MainSimulationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Simulation Runner" Height="600" Width="800" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize">
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="_Run"/>
+        </Menu>
+        <ToolBar>
+            <Button Content="Selection"/>
+            <Button Content="Stock"/>
+            <Button Content="Flow"/>
+            <Button Content="Reference"/>
+            <Button Content="Coefficient"/>
+        </ToolBar>
+        <Image Height="490"/>
+        <ToolBar>
+            <Label>Step</Label>
+            <TextBox Name="StepBox" Width="100">1</TextBox>
+            <Label>Time</Label>
+            <TextBox Name="TimeBox" Width="100">1</TextBox>
+        </ToolBar>
+    </StackPanel>
+</Window>

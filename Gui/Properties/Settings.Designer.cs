@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NaughtySpirit.SimsRunner.AppRunner.Properties {
+namespace NaughtySpirit.SimsRunner.Gui.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
