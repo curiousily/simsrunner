@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NaughtySpirit.SimsRunner.Domain;
 
 namespace NaughtySpirit.SimsRunner.Gui
 {
@@ -18,9 +19,12 @@ namespace NaughtySpirit.SimsRunner.Gui
     /// </summary>
     public partial class EditObjectWindow : Window
     {
-        public EditObjectWindow()
+        private readonly IEditable _editable;
+
+        public EditObjectWindow(IEditable editable)
         {
             InitializeComponent();
+            _editable = editable;
             NameBox.Focus();
         }
     }

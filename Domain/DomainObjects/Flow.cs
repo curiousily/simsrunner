@@ -1,11 +1,11 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
+using NaughtySpirit.SimsRunner.Domain.Attributes;
+using NaughtySpirit.SimsRunner.Domain.Extensions;
 
-namespace NaughtySpirit.SimsRunner.Domain
+namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
 {
     public class Flow : BaseDomainObject, IView
     {
@@ -26,16 +26,21 @@ namespace NaughtySpirit.SimsRunner.Domain
             _targetStock.MouseDrag += OnTargetStockMouseDragHandler;
         }
 
+        [Editable]
+        public string Formula { get; set; }
+
         private void OnTargetStockMouseDragHandler(object sender, Point dragPoint)
         {
-            _targetLine.X2 = dragPoint.X + MouseOffset;
-            _targetLine.Y2 = dragPoint.Y + MouseOffset;
+            dragPoint.Offset(-MouseOffset, -MouseOffset);
+            _targetLine.X2 = dragPoint.X;
+            _targetLine.Y2 = dragPoint.Y;
         }
 
         private void OnSourceStockMouseDragHandler(object sender, Point dragPoint)
         {
-            _sourceLine.X1 = dragPoint.X + MouseOffset;
-            _sourceLine.Y1 = dragPoint.Y + MouseOffset;
+            dragPoint.Offset(MouseOffset, MouseOffset);
+            _sourceLine.X1 = dragPoint.X;
+            _sourceLine.Y1 = dragPoint.Y;
         }
 
         public void AddToCanvas(Canvas canvas)
@@ -58,12 +63,13 @@ namespace NaughtySpirit.SimsRunner.Domain
 
         private void OnMouseDragHandler(object sender, Point dragPoint)
         {
-            var rect = sender as Rectangle;
-            _sourceLine.X2 = dragPoint.X + MouseOffset;
-            _sourceLine.Y2 = dragPoint.Y + MouseOffset;
+            var rect = (Rectangle) sender;
+            dragPoint.Offset(MouseOffset, MouseOffset);
+            _sourceLine.X2 = dragPoint.X;
+            _sourceLine.Y2 = dragPoint.Y;
 
-            _targetLine.X1 = dragPoint.X + MouseOffset;
-            _targetLine.Y1 = dragPoint.Y + MouseOffset;
+            _targetLine.X1 = dragPoint.X;
+            _targetLine.Y1 = dragPoint.Y;
             Canvas.SetLeft(rect, dragPoint.X - Width / 2);
             Canvas.SetTop(rect, dragPoint.Y - Height / 2);
         }

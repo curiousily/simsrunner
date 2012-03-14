@@ -1,8 +1,8 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace NaughtySpirit.SimsRunner.Domain
+namespace NaughtySpirit.SimsRunner.Domain.Extensions
 {
     public static class LineExtensions
     {

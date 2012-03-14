@@ -2,10 +2,11 @@
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using NaughtySpirit.SimsRunner.Domain.Attributes;
 using Timer = System.Timers.Timer;
-namespace NaughtySpirit.SimsRunner.Domain
+namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
 {
-    public abstract class BaseDomainObject
+    public abstract class BaseDomainObject : IEditable
     {
         private readonly Timer _clickTimer;
         private int _clickCount;
@@ -24,6 +25,9 @@ namespace NaughtySpirit.SimsRunner.Domain
             _clickTimer = new Timer(200);
             _clickTimer.Elapsed += OnClickTimerElapsedHandler;
         }
+
+        [Editable]
+        public string Name { get; set; }
 
         private void OnMouseDoubleClick()
         {

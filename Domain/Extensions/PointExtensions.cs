@@ -1,6 +1,6 @@
-﻿using System.Windows;
+using System.Windows;
 
-namespace NaughtySpirit.SimsRunner.Domain
+namespace NaughtySpirit.SimsRunner.Domain.Extensions
 {
     public static class PointExtensions
     {

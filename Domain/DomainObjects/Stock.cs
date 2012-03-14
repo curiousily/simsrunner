@@ -2,8 +2,10 @@
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
+using NaughtySpirit.SimsRunner.Domain.Attributes;
+using NaughtySpirit.SimsRunner.Domain.Extensions;
 
-namespace NaughtySpirit.SimsRunner.Domain
+namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
 {
     public class Stock : BaseDomainObject, IView
     {
@@ -12,12 +14,13 @@ namespace NaughtySpirit.SimsRunner.Domain
 
         private readonly Point _midPoint;
 
-//        private Rectangle _rect;
-
         public Stock(Point midPoint)
         {
             _midPoint = midPoint;
         }
+
+        [Editable]
+        public string InitialValue { get; set; } 
 
         public Point MidPoint
         {
@@ -38,7 +41,7 @@ namespace NaughtySpirit.SimsRunner.Domain
 
         private void OnMouseDrag(object sender, Point dragPoint)
         {
-            var rect = sender as Rectangle;
+            var rect = (Rectangle) sender;
             Canvas.SetLeft(rect, dragPoint.X - 25);
             Canvas.SetTop(rect, dragPoint.Y - 25);
         }
