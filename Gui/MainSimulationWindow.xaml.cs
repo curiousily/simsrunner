@@ -31,6 +31,7 @@ namespace NaughtySpirit.SimsRunner.Gui
                                               var editWindow = new EditObjectWindow(clickedStock);
                                               editWindow.ShowDialog();
                                           };
+            
             if(_stockCount == 2)
             {
                 var flow = new Flow(stock, _stocks[0]);

@@ -23,8 +23,8 @@ namespace NaughtySpirit.SimsRunner.Gui
     {
         private readonly IEditable _editable;
 
-        private IList<Label> _labels = new List<Label>(); 
-        private IList<TextBox> _textBoxes = new List<TextBox>(); 
+        private readonly IList<Label> _labels = new List<Label>(); 
+        private readonly IList<TextBox> _textBoxes = new List<TextBox>(); 
 
         public EditObjectWindow(IEditable editable)
         {
@@ -52,6 +52,22 @@ namespace NaughtySpirit.SimsRunner.Gui
         {
             var editableType = _editable.GetType();
             return editableType.GetProperties().Where(propertyInfo => Attribute.IsDefined(propertyInfo, typeof(EditableAttribute))).Reverse();
+        }
+
+        private void OnCancelClickHandler(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OnSaveClickHandler(object sender, RoutedEventArgs e)
+        {
+            var propertyIndex = 0;
+            foreach (var propertyInfo in AllEditableAttributes())
+            {
+                propertyInfo.SetValue(_editable, _textBoxes[propertyIndex].Text, null);
+                propertyIndex++;
+            }
+            Close();
         }
     }
 }
