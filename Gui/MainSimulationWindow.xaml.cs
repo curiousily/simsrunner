@@ -10,12 +10,30 @@ namespace NaughtySpirit.SimsRunner.Gui
     
     public partial class MainSimulationWindow
     {
+        public delegate void EnableSelectionHandler();
+        public event EnableSelectionHandler EnableSelection;
+
+        public delegate void DisableSelectionHandler();
+        public event DisableSelectionHandler DisableSelection;
+
         private readonly IList<BaseDomainObject> _domainObjects = new List<BaseDomainObject>();
-        private readonly IList<Stock> _selectedStocks = new List<Stock>();
+        private readonly IList<Stock> _selectedStocks = new List<Stock>();     
 
         public MainSimulationWindow()
         {
             InitializeComponent();
+        }
+
+        public void OnEnableSelection()
+        {
+            var handler = EnableSelection;
+            if (handler != null) handler();
+        }
+
+        public void OnDisableSelection()
+        {
+            var handler = DisableSelection;
+            if (handler != null) handler();
         }
 
         private void OnCanvasClickHandler(object sender, MouseButtonEventArgs mouseButtonEventArgs)
@@ -43,6 +61,8 @@ namespace NaughtySpirit.SimsRunner.Gui
             stock.AddToCanvas(CanvasBox);
             stock.MouseClick += OnStockMouseClickHandler;
             stock.MouseDoubleClick += DomainObjectClickHandler;
+            EnableSelection += stock.OnEnableSelectionHandler;
+            DisableSelection += stock.OnDisableSelectionHandler;
             _domainObjects.Add(stock);            
         }
 
@@ -51,6 +71,8 @@ namespace NaughtySpirit.SimsRunner.Gui
             var flow = new Flow(_selectedStocks[0], _selectedStocks[1]);
             flow.AddToCanvas(CanvasBox);
             flow.MouseDoubleClick += DomainObjectClickHandler;
+            EnableSelection += flow.OnEnableSelectionHandler;
+            DisableSelection += flow.OnDisableSelectionHandler;
             _domainObjects.Add(flow);
             _selectedStocks.Clear();
         }
@@ -91,6 +113,16 @@ namespace NaughtySpirit.SimsRunner.Gui
             ISimulation simulation = new EulerSimulation(formula, time, step);
             simulation.Run();
             MessageBox.Show("Simulation Complete!");
+        }
+
+        private void OnSelectClickHandler(object sender, RoutedEventArgs e)
+        {
+            OnEnableSelection();
+        }
+
+        private void OnToolSelectHandler(object sender, RoutedEventArgs e)
+        {
+            OnDisableSelection();
         }
     }
 }

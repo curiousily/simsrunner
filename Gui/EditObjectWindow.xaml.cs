@@ -26,6 +26,7 @@ namespace NaughtySpirit.SimsRunner.Gui
             _labels.Add(Label2);
             _textBoxes.Add(TextBox1);
             _textBoxes.Add(TextBox2);
+            Title += " " + _editObject.GetType().Name;
             TextBox1.Focus();
             SetLabelContents();
         }

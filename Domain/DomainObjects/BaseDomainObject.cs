@@ -6,7 +6,7 @@ using NaughtySpirit.SimsRunner.Domain.Attributes;
 using Timer = System.Timers.Timer;
 namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
 {
-    public abstract class BaseDomainObject
+    public abstract class BaseDomainObject : IFormulable
     {
         private readonly Timer _clickTimer;
         private int _clickCount;
@@ -27,10 +27,23 @@ namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
         {
             _clickTimer = new Timer(150);
             _clickTimer.Elapsed += OnClickTimerElapsedHandler;
+            SelectionEnabled = false;
         }
+
+        public bool SelectionEnabled { get; set; }
 
         [Editable]
         public string Name { get; set; }
+
+        public void OnEnableSelectionHandler()
+        {
+            SelectionEnabled = true;
+        }
+
+        public void OnDisableSelectionHandler()
+        {
+            SelectionEnabled = false;
+        }
 
         public void OnMouseClick(object sender)
         {
@@ -47,7 +60,7 @@ namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
         private void OnDrag(object sender, Point dragPoint)
         {
             var handler = MouseDrag;
-            if (handler != null) handler(sender, dragPoint);
+            if (handler != null && SelectionEnabled) handler(sender, dragPoint);
         }
 
         private void OnClickTimerElapsedHandler(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -104,5 +117,12 @@ namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
             _clickCount++;
             _clickTimer.Start();
         }
+
+        public string GetFormula()
+        {
+            return DoGetFormula().Replace(" ", "");
+        }
+
+        protected abstract string DoGetFormula();
     }
 }

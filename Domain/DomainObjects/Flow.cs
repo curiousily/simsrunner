@@ -21,8 +21,10 @@ namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
         public Flow(Stock sourceStock, Stock targetStock)
         {
             _sourceStock = sourceStock;
+            _sourceStock.OutFormulable = this;
             _sourceStock.MouseDrag += OnSourceStockMouseDragHandler;
             _targetStock = targetStock;
+            _targetStock.InFormulable = this;
             _targetStock.MouseDrag += OnTargetStockMouseDragHandler;
         }
 
@@ -72,6 +74,11 @@ namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
             _targetLine.Y1 = dragPoint.Y;
             Canvas.SetLeft(rect, dragPoint.X - Width / 2);
             Canvas.SetTop(rect, dragPoint.Y - Height / 2);
+        }
+
+        protected override string DoGetFormula()
+        {
+            return Formula;
         }
     }
 }
