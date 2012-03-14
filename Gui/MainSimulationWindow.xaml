@@ -10,13 +10,13 @@
             <RadioButton Name="StockButton" Content="Stock" IsChecked="True" GroupName="Tools"/>
             <RadioButton Name="FlowButton" Content="Flow" GroupName="Tools"/>
         </ToolBar>
-        <Canvas Height="510" Name="CanvasBox" MouseUp="OnCanvasMouseUpHandler" Background="#FFFFFE" />
+        <Canvas Height="510" Name="CanvasBox" MouseUp="OnCanvasClickHandler" Background="#FFFFFE" />
         <ToolBar>
             <Label>Step</Label>
             <TextBox Name="StepBox" Width="100">1</TextBox>
             <Label>Time</Label>
             <TextBox Name="TimeBox" Width="100">1</TextBox>
-            <Button Name="RunButton" Width="50" Margin="40 0 0 0">Run</Button>
+            <Button Name="RunButton" Width="50" Margin="40 0 0 0" Click="OnRunClickHandler">Run</Button>
         </ToolBar>
     </StackPanel>
 </Window>
