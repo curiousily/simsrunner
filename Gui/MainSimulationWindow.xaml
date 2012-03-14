@@ -9,13 +9,11 @@
             <MenuItem Header="_Run"/>
         </Menu>
         <ToolBar>
-            <Button Content="Selection"/>
-            <Button Content="Stock"/>
-            <Button Content="Flow"/>
-            <Button Content="Reference"/>
-            <Button Content="Coefficient"/>
+            <RadioButton Name="SelectButton" Content="Selection" GroupName="Tools"/>
+            <RadioButton Name="StockButton" Content="Stock" IsChecked="True" GroupName="Tools"/>
+            <RadioButton Name="FlowButton" Content="Flow" GroupName="Tools"/>
         </ToolBar>
-        <Image Height="490"/>
+        <Canvas Height="490" Name="CanvasBox" MouseDown="OnCanvasMouseDownHandler" Background="#FFFFFE" />
         <ToolBar>
             <Label>Step</Label>
             <TextBox Name="StepBox" Width="100">1</TextBox>

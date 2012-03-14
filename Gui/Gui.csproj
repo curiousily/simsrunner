@@ -54,10 +54,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="EditObjectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainSimulationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="EditObjectWindow.xaml.cs">
+      <DependentUpon>EditObjectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainSimulationWindow.xaml.cs">
       <DependentUpon>MainSimulationWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -86,6 +93,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{0FE87921-2B60-4468-BA4A-8EA1D05F63AF}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
