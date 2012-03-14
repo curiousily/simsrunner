@@ -20,12 +20,12 @@ namespace NaughtySpirit.SimsRunner.Domain.Services.Simulation
             _step = step;
         }
 
-        private IList<Variable> GetVariables(String formula)
+        private IList<Variable> VariablesOf(String formula)
         {
             return LinesWithEqualSign(formula).Select(line => new Variable(GetName(line), GetValue(line))).ToList();
         }
 
-        private IList<Derivative> GetDerivatives(String formula)
+        private IList<Derivative> DerivativesOf(String formula)
         {
             return LinesWithEqualSign(formula).Select(line => new Derivative(GetName(line), GetExpression(line))).ToList();
         }
@@ -59,23 +59,20 @@ namespace NaughtySpirit.SimsRunner.Domain.Services.Simulation
         public ISimulationResult Run()
         {
             var result = new SimpleSimulationResult();
-            var variables = GetVariables(_formula);
-            var derivatives = GetDerivatives(_formula);
+            var variables = VariablesOf(_formula);
+            var derivatives = DerivativesOf(_formula);
             
             for (var time = _step; time <= _time; time += _step)
             {
                 foreach (var derivative in derivatives)
                 {
-                    var derivativeExpression = derivative.Expression;
+                    var expression = derivative.Expression;
                     foreach (var variable in variables)
                     {
-                        derivativeExpression = derivativeExpression.Replace(variable.Name,
-                                                                            variable.Value.ToString(
-                                                                                CultureInfo.InvariantCulture));
+                        expression = expression.Replace(variable.Name, variable.GetValueString());
                     }
-                    var expression = new Expression(derivativeExpression);
                     var variableValue = variables.First(var => var.Name == derivative.Name).Value;
-                    var nextValue = variableValue + _step * Convert.ToDouble(expression.Evaluate());
+                    var nextValue = variableValue + _step * Convert.ToDouble(new Expression(expression).Evaluate());
                     result.AddPoint(derivative.Name, nextValue);
                 }
                 //TODO rearange points here

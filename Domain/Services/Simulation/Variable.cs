@@ -1,4 +1,6 @@
-﻿namespace NaughtySpirit.SimsRunner.Domain.Services.Simulation
+﻿using System.Globalization;
+
+namespace NaughtySpirit.SimsRunner.Domain.Services.Simulation
 {
     public class Variable
     {
@@ -9,6 +11,11 @@
         {
             Name = name;
             Value = value;
+        }
+
+        public string GetValueString()
+        {
+            return Value.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
