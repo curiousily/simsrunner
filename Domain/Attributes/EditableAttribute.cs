@@ -2,7 +2,7 @@
 
 namespace NaughtySpirit.SimsRunner.Domain.Attributes
 {
-    class EditableAttribute : Attribute
+    public class EditableAttribute : Attribute
     {
     }
 }
