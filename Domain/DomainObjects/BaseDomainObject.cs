@@ -6,28 +6,37 @@ using NaughtySpirit.SimsRunner.Domain.Attributes;
 using Timer = System.Timers.Timer;
 namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
 {
-    public abstract class BaseDomainObject : IEditable
+    public abstract class BaseDomainObject
     {
         private readonly Timer _clickTimer;
         private int _clickCount;
         private bool _isDragging;
         private IInputElement _relativeTarget;
 
-        public delegate void MouseDoubleClickHandler(BaseDomainObject sender);
+        public delegate void MouseDoubleClickHandler(object sender);
 
         public delegate void MouseDragHandler(object sender, Point dragPoint);
 
+        public delegate void MouseClickHandler(object sender);
+
         public event MouseDoubleClickHandler MouseDoubleClick;
         public event MouseDragHandler MouseDrag;
+        public event MouseClickHandler MouseClick;
 
         protected BaseDomainObject()
         {
-            _clickTimer = new Timer(200);
+            _clickTimer = new Timer(150);
             _clickTimer.Elapsed += OnClickTimerElapsedHandler;
         }
 
         [Editable]
         public string Name { get; set; }
+
+        public void OnMouseClick(object sender)
+        {
+            var handler = MouseClick;
+            if (handler != null) handler(sender);
+        }
 
         private void OnMouseDoubleClick()
         {
@@ -77,6 +86,7 @@ namespace NaughtySpirit.SimsRunner.Domain.DomainObjects
         private void OnMouseUpHandler(object sender, MouseButtonEventArgs mouseButtonEventArgs)
         {
             _isDragging = false;
+            OnMouseClick(this);
         }
 
         private void OnMouseMoveHandler(object sender, MouseEventArgs mouseEventArgs)

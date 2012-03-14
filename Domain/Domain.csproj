@@ -53,12 +53,13 @@
     <Compile Include="Extensions\LineExtensions.cs" />
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\RectangleExtensions.cs" />
-    <Compile Include="IEditable.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Simulation\EulerSimulation.cs" />
     <Compile Include="Services\Simulation\ISimulation.cs" />
     <Compile Include="DomainObjects\Stock.cs" />
+    <Compile Include="Services\Simulation\Result\ISimulationResult.cs" />
+    <Compile Include="Services\Simulation\Result\SimpleSimulationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
