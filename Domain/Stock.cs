@@ -12,7 +12,7 @@ namespace NaughtySpirit.SimsRunner.Domain
 
         private readonly Point _midPoint;
 
-        private Rectangle _rect;
+//        private Rectangle _rect;
 
         public Stock(Point midPoint)
         {
@@ -26,20 +26,21 @@ namespace NaughtySpirit.SimsRunner.Domain
 
         public void AddToCanvas(Canvas canvas)
         {
-            _rect = new Rectangle
+            var rectangle = new Rectangle
             {
                 Stroke = Brushes.Black,
                 Fill = Brushes.MidnightBlue
             };
-            MakeDraggable(_rect, relativeTo: canvas);
-            Drag += OnDrag;
-            canvas.Children.Add(_rect.FromMidPoint(_midPoint, Width, Height));
+            MakeDraggable(rectangle, relativeTo: canvas);
+            MouseDrag += OnMouseDrag;
+            canvas.Children.Add(rectangle.FromMidPoint(_midPoint, Width, Height));
         }
 
-        private void OnDrag(Point dragPoint)
+        private void OnMouseDrag(object sender, Point dragPoint)
         {
-            Canvas.SetLeft(_rect, dragPoint.X - 25);
-            Canvas.SetTop(_rect, dragPoint.Y - 25);
+            var rect = sender as Rectangle;
+            Canvas.SetLeft(rect, dragPoint.X - 25);
+            Canvas.SetTop(rect, dragPoint.Y - 25);
         }
     }
 }

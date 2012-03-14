@@ -14,10 +14,10 @@ namespace NaughtySpirit.SimsRunner.Domain
 
         public delegate void MouseDoubleClickHandler(BaseDomainObject sender);
 
-        public delegate void DragHandler(Point dragPoint);
+        public delegate void MouseDragHandler(object sender, Point dragPoint);
 
         public event MouseDoubleClickHandler MouseDoubleClick;
-        public event DragHandler Drag;
+        public event MouseDragHandler MouseDrag;
 
         protected BaseDomainObject()
         {
@@ -31,10 +31,10 @@ namespace NaughtySpirit.SimsRunner.Domain
             if (handler != null) handler(this);
         }
 
-        private void OnDrag(Point dragPoint)
+        private void OnDrag(object sender, Point dragPoint)
         {
-            var handler = Drag;
-            if (handler != null) handler(dragPoint);
+            var handler = MouseDrag;
+            if (handler != null) handler(sender, dragPoint);
         }
 
         private void OnClickTimerElapsedHandler(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -80,7 +80,7 @@ namespace NaughtySpirit.SimsRunner.Domain
             if (_isDragging)
             {
                 var dragPoint = mouseEventArgs.GetPosition(_relativeTarget);
-                OnDrag(dragPoint);
+                OnDrag(sender, dragPoint);
             }
         }
 
