@@ -16,7 +16,7 @@ namespace NaughtySpirit.SimsRunner.Gui
         public delegate void DisableSelectionHandler();
         public event DisableSelectionHandler DisableSelection;
 
-        private readonly IList<BaseDomainObject> _domainObjects = new List<BaseDomainObject>();
+        private readonly IList<BaseDomainObject> _flows = new List<BaseDomainObject>();
         private readonly IList<Stock> _selectedStocks = new List<Stock>();     
 
         public MainSimulationWindow()
@@ -63,7 +63,7 @@ namespace NaughtySpirit.SimsRunner.Gui
             stock.MouseDoubleClick += DomainObjectClickHandler;
             EnableSelection += stock.OnEnableSelectionHandler;
             DisableSelection += stock.OnDisableSelectionHandler;
-            _domainObjects.Add(stock);            
+//            _flows.Add(stock);            
         }
 
         private void AddFlow()
@@ -73,7 +73,7 @@ namespace NaughtySpirit.SimsRunner.Gui
             flow.MouseDoubleClick += DomainObjectClickHandler;
             EnableSelection += flow.OnEnableSelectionHandler;
             DisableSelection += flow.OnDisableSelectionHandler;
-            _domainObjects.Add(flow);
+            _flows.Add(flow);
             _selectedStocks.Clear();
         }
 
@@ -107,7 +107,12 @@ namespace NaughtySpirit.SimsRunner.Gui
 
         private void OnRunClickHandler(object sender, RoutedEventArgs routedEventArgs)
         {
-            var formula = "a*b";
+            var formula = "";
+            foreach(var flow in _flows)
+            {
+                formula += flow.GetFormula();
+            }
+            MessageBox.Show("Formula: " + formula);
             var time = Int32.Parse(TimeBox.Text);
             var step = Int32.Parse(StepBox.Text);
             ISimulation simulation = new EulerSimulation(formula, time, step);
